@@ -22,10 +22,10 @@ services:
       dockerfile: Dockerfile-backend
     command: python scripts/notify.py
     environment: *environment-variables
-  pooling:
+  polling:
     build:
       dockerfile: Dockerfile-backend
-    command: python scripts/pooling.py
+    command: python scripts/polling.py
     environment: *environment-variables
   backend:
     build:

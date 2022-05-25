@@ -34,8 +34,8 @@ class TelegramProvider(BaseProvider):
         self._bot.send_message(notification.recipient.provider_id, message, parse_mode="HTML")
 
 
-class BasePoolingClient(ABC):
-    """Abstract pooling client"""
+class BasePollingClient(ABC):
+    """Abstract polling client"""
 
     provider: Provider = None
 
@@ -47,12 +47,12 @@ class BasePoolingClient(ABC):
         self._backend.save_recipient(self.provider, recipient_id)
 
     @abstractmethod
-    def start_pooling(self):
-        """Must start provider's pooling"""
+    def start_polling(self):
+        """Must start provider's polling"""
 
 
-class TelegramPoolingClient(BasePoolingClient):
-    """Telegram pooling client implementation"""
+class TelegramPollingClient(BasePollingClient):
+    """Telegram polling client implementation"""
 
     provider: Provider = Provider.telegram
 
@@ -68,6 +68,6 @@ class TelegramPoolingClient(BasePoolingClient):
         """Save any contacted recipient to backend"""
         self.save_recipient(str(message.chat.id))
 
-    def start_pooling(self):
-        """Star telebot pooling"""
+    def start_polling(self):
+        """Star telebot polling"""
         self._bot.polling()

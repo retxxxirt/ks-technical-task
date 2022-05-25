@@ -55,7 +55,7 @@ Notifies via telegram bot about today's and overdue orders. Requires ```DATABASE
 Starts bot polling to save all contacted users as notifications recipients.
 Requires ```DATABASE_DSN``` and ```TELEGRAM_BOT_TOKEN``` environment variables.
 
-    python scripts/pooling.py
+    python scripts/polling.py
 
 #### Backend dev server
 
