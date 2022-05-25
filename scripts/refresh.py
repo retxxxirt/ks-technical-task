@@ -10,7 +10,7 @@ from utils.scripts import script
 
 @script(interval=timedelta(seconds=5))
 def refresh_orders():
-    """Refresh orders with GSExtractor and DatabasePreserver"""
+    """Refresh orders with GSExtractor and DatabaseBackend"""
 
     extractor = GSExtractor(settings.google_sheet_key)
     backend = DatabaseBackend(engine)
