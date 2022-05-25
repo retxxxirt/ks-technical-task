@@ -1,0 +1,47 @@
+version: "3.9"
+
+x-environment-variables: &environment-variables
+  GOOGLE_SHEET_KEY: 1DL2pLSwZLe3BQtXMjjbXPbtIHiAxVU1HZH3mOETu49Q
+  DATABASE_DSN: <database-dsn>
+  TELEGRAM_BOT_TOKEN: <bot-token>
+
+x-service-account-volumes: &service-account-volumes
+  volumes:
+    - /path/to/service_account.json:/code/data/service_account.json
+
+
+services:
+  refresher:
+    build:
+      dockerfile: Dockerfile-backend
+    command: python scripts/refresh.py
+    <<: *service-account-volumes
+    environment: *environment-variables
+  notifier:
+    build:
+      dockerfile: Dockerfile-backend
+    command: python scripts/notify.py
+    environment: *environment-variables
+  pooling:
+    build:
+      dockerfile: Dockerfile-backend
+    command: python scripts/pooling.py
+    environment: *environment-variables
+  backend:
+    build:
+      dockerfile: Dockerfile-backend
+    command: flask run -h 0.0.0.0
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_APP: app/webapp/backend
+      <<: *environment-variables
+  frontend:
+    build:
+      dockerfile: Dockerfile-frontend
+    command: npm start
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_BACKEND_HOST: 127.0.0.1
+      REACT_APP_BACKEND_PORT: 5000

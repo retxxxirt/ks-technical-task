@@ -1,0 +1,6 @@
+FROM node:16.14
+
+WORKDIR /app
+COPY app/webapp/frontend/package.json /app/package.json
+RUN npm install
+COPY app/webapp/frontend /app
