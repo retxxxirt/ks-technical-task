@@ -8,7 +8,7 @@ from app.settings import settings
 from utils.scripts import script
 
 
-@script(interval=timedelta(seconds=5))
+@script(interval=timedelta(seconds=10))
 def send_notifications():
     """Notify all telegram recipients using data from DatabaseBackend"""
 

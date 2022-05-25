@@ -1,3 +1,4 @@
+from app.logger import logger
 from app.notifier.backends import BaseBackend
 from app.notifier.providers import BaseProvider
 
@@ -14,7 +15,12 @@ class Notifier:
 
         for provider in self._providers:
             notifications = self._backend.get_notifications_for_provider(provider.name)
+            notifications_counter = 0
 
             for notification in notifications:
                 provider.send_notification(notification)
                 self._backend.mark_notification_sent(notification)
+
+                notifications_counter += 1
+
+            logger.info(f"Sent {notifications_counter} actual notification(s) via {provider.name}")

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from app.logger import logger
 from app.refresher import cbrf
 from app.refresher.backends import BaseBackend
 from app.refresher.extractors import BaseExtractor
@@ -37,3 +38,5 @@ class Refresher:
         orders = self._update_orders(orders)
 
         self._backend.refresh_orders(orders)
+
+        logger.info(f"Successfully refreshed {len(orders)} order(s)")
