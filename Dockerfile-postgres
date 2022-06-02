@@ -1,0 +1,5 @@
+FROM postgres:14.3
+
+ENV POSTGRES_USER docker
+ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB database
